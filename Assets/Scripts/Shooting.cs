@@ -14,7 +14,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            Bullet.Create(transform.forward + transform.position + new Vector3(0, -0.25f, 0), transform.forward, 1f, 5, false);
+            Bullet.Create(transform.forward + transform.position + new Vector3(0, -0.25f, 0), transform.forward, 5f, 5, false);
         }
 
     }
