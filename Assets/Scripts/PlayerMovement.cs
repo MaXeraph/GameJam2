@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool dashing = false;
     public bool isSprinting = false;
-    public float sprintMultiplier = 2f;
+    public float sprintMultiplier = 3f;
 
     bool isGrounded;
     Vector3 velocity;
