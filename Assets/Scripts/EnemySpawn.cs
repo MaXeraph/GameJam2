@@ -59,5 +59,21 @@ public class EnemySpawn : MonoBehaviour
         _direction = (_playerTransform.position - _enemyTransform.position).normalized;
         _lookRotation = Quaternion.LookRotation(_direction);
         _enemyTransform.rotation = _lookRotation;
+
+        if (!_cooldown)
+        {
+            Bullet.Create(_enemyTransform.position + _enemyTransform.forward + new Vector3(0, -0.25f, 0), _enemyTransform.forward, 5f, 5, false);
+            _cooldown = true;
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    private bool _cooldown = false;
+    private float _cooldownDelay = 2f;
+
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(_cooldownDelay);
+        _cooldown = false;
     }
 }
