@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
+    public GameObject gameOverText;
     public float currentHealth;
     public HealthBar healthBar;
     public Stats stat;
     // Start is called before the first frame update
     void Start()
     {
+        gameOverText.SetActive(false);
         currentHealth = stat.maxHealth;
         healthBar.setMaxHealth(stat.maxHealth);
     }
@@ -20,5 +22,9 @@ public class HealthUI : MonoBehaviour
     {
         healthBar.setHealth(currentHealth);
         currentHealth = stat.currentHealth;
+
+        if (currentHealth == 0){
+            gameOverText.SetActive(true);
+        }
     }
 }
