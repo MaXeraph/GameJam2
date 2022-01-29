@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     private bool dashing = false;
+    public bool isSprinting = false;
+    public float sprintMultiplier = 2f;
 
     bool isGrounded;
     Vector3 velocity;
@@ -30,18 +32,33 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            isSprinting = true;
+        }
+        else
+        {
+            isSprinting = false;
+        }
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * y;
 
-        controller.Move(move * speed * Time.deltaTime);
+        if (isSprinting)
+        {
+            move *= sprintMultiplier;
+        }
+
+        controller.Move(move * speed * Time.deltaTime );
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
