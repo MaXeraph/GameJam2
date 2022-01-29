@@ -15,7 +15,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            Bullet.Create(transform.forward + transform.position + new Vector3(0, -0.05f, 0), cameraView.transform.forward, 5f, 5, false);
+            Bullet.Create(transform.forward + transform.position + new Vector3(0, -0.05f, 0), cameraView.transform.forward, 5f, 25, true);
         }
 
     }
