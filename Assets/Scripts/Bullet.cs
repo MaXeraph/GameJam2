@@ -33,15 +33,22 @@ public class Bullet : MonoBehaviour
         transform.position += transform.forward * bulletSpeed * SpeedManager.bulletSpeedScaling * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision c) {
+    void OnTriggerEnter(Collider c) {
         Stats statsComponent = c.gameObject.GetComponent<Stats>();
         if (statsComponent) {
             if (c.gameObject.tag == "Player" && playerBullet == false) {
                 statsComponent.currentHealth -= damage;
                 SpeedManager.updateSpeeds(statsComponent.currentHealth / statsComponent.maxHealth);
+                if (statsComponent.currentHealth <= 0) {
+                    Debug.Log("Player dead");
+                    Time.timeScale = 0f;
+                }
             }
             else if  (c.gameObject.tag == "Enemy" && playerBullet == true) {
                 statsComponent.currentHealth -= damage;
+                if (statsComponent.currentHealth <= 0) {
+                    Destroy(c.gameObject);
+                }
             }
         }
         Destroy(this.gameObject);

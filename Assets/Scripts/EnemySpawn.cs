@@ -21,8 +21,7 @@ public class EnemySpawn : MonoBehaviour
     private Transform _playerTransform;
     private const float RotationSpeed = 1.0f;
 
-    private Quaternion _lookRotation;
-    private Vector3 _direction;
+
 
     private const float _respawnHeight = -10f;
     private const float _abovePlatformHeight = 1f;
@@ -33,31 +32,28 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _enemyChar = GameObject.Instantiate(Resources.Load("Enemy"), _enemySpawnLocation, Quaternion.identity) as GameObject;
-
-        _enemyTransform = _enemyChar.transform;
-
         _platformTransform = GameObject.Find("Platform").transform;
 
         _platformSize_X = _platformTransform.localScale.x / 2 - _platformOffset;
         _platformSize_Z = _platformTransform.localScale.z / 2 - _platformOffset;
         _platformSize_Y = _platformTransform.localScale.y + _abovePlatformHeight;
-
-        _enemySpawn_X = _platformTransform.position[0] + Random.Range(-_platformSize_X, _platformSize_X);
-        _enemySpawn_Z = _platformTransform.position[2] + Random.Range(-_platformSize_X, _platformSize_X);
-        _enemySpawn_Y = _platformTransform.position[1] + _platformSize_Y;
-        _enemySpawnLocation = new Vector3(_enemySpawn_X, _enemySpawn_Y, _enemySpawn_Z);
-
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        InvokeRepeating("SpawnEnemy", 0, 5);
     }
 
     // Update is called once per frame
     void Update()
     {
-        _enemyTransform.position = _enemySpawnLocation;
 
-        _direction = (_playerTransform.position - _enemyTransform.position).normalized;
-        _lookRotation = Quaternion.LookRotation(_direction);
-        _enemyTransform.rotation = _lookRotation;
+    }
+
+    void SpawnEnemy() {
+        _enemyChar = GameObject.Instantiate(Resources.Load("Enemy"), _enemySpawnLocation, Quaternion.identity) as GameObject;
+        _enemyTransform = _enemyChar.transform;
+
+        _enemySpawn_X = _platformTransform.position[0] + Random.Range(-_platformSize_X, _platformSize_X);
+        _enemySpawn_Z = _platformTransform.position[2] + Random.Range(-_platformSize_X, _platformSize_X);
+        _enemySpawn_Y = _platformTransform.position[1] + _platformSize_Y;
+        _enemySpawnLocation = new Vector3(_enemySpawn_X, _enemySpawn_Y, _enemySpawn_Z);
+        _enemyTransform.position = _enemySpawnLocation;     
     }
 }
