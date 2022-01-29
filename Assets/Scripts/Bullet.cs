@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
         transform.position += transform.forward * bulletSpeed * SpeedManager.bulletSpeedScaling * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision c) {
+    void OnTriggerEnter(Collider c) {
         Stats statsComponent = c.gameObject.GetComponent<Stats>();
         if (statsComponent) {
             if (c.gameObject.tag == "Player" && playerBullet == false) {
