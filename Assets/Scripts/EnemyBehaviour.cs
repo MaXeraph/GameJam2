@@ -23,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (!_cooldown)
         {
-            Bullet.Create(transform.position + transform.forward + new Vector3(0, -0.25f, 0), transform.forward, 5f, 5, false);
+            Bullet.Create(transform.position + transform.forward + new Vector3(0, -0.25f, 0), transform.forward, 10f, 5, false);
             _cooldown = true;
             StartCoroutine(Cooldown());
         }

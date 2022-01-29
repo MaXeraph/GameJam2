@@ -43,7 +43,22 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_cooldown)
+        {
+            _cooldownDelay = 1f / SpeedManager.enemySpawnScaling;
+            SpawnEnemy();
+            _cooldown = true;
+            StartCoroutine(Cooldown());
+        }
+    }
+    
+    private bool _cooldown = false;
+    private float _cooldownDelay = 1f;
 
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(_cooldownDelay);
+        _cooldown = false;
     }
 
     void SpawnEnemy() {
