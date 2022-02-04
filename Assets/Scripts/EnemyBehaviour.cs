@@ -6,17 +6,27 @@ public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     Transform _playerTransform;
+    ParticleSystem part;
 
     private Quaternion _lookRotation;
     private Vector3 _direction;
     void Start()
     {
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        part = GetComponent<ParticleSystem>();
+       // _playerTransform = GameObject.FindGameObjectWithTag("Player").Camera.main.transform;
+        _playerTransform = Camera.main.transform;
+    }
+
+
+    public void get_hit()
+    {
+        part.Emit(100);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         _direction = (_playerTransform.position - transform.position).normalized;
         _lookRotation = Quaternion.LookRotation(_direction);
         transform.rotation = _lookRotation;

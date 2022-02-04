@@ -11,6 +11,7 @@ public class SpeedManager : MonoBehaviour
     public static float enemySpawnScaling = 1f;
 
     static AudioSource music;
+
     void Start() {
         music = GameObject.Find("AudioManager").GetComponent<AudioSource>();
     }

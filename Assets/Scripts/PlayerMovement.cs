@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public CharacterController controller;
 
     public float speed = 12f;
@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    private bool dashing = false;
+    //private bool dashing = false;
     public bool isSprinting = false;
-    public float sprintMultiplier = 3f;
+    public float sprintMultiplier = 2f;
 
     bool isGrounded;
     Vector3 velocity;
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             isSprinting = true;
         }
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             move *= sprintMultiplier;
         }
 
-        controller.Move(move * speed * Time.deltaTime );
+        controller.Move(move * speed * SpeedManager.playerMovementScaling * Time.deltaTime );
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime * SpeedManager.playerMovementScaling);
     }
 
     private void check_ground()

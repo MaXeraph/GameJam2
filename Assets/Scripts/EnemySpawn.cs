@@ -45,7 +45,7 @@ public class EnemySpawn : MonoBehaviour
     {
         if (!_cooldown)
         {
-            _cooldownDelay = 1f / SpeedManager.enemySpawnScaling;
+            _cooldownDelay = 3f / SpeedManager.enemySpawnScaling;
             SpawnEnemy();
             _cooldown = true;
             StartCoroutine(Cooldown());
@@ -53,7 +53,7 @@ public class EnemySpawn : MonoBehaviour
     }
     
     private bool _cooldown = false;
-    private float _cooldownDelay = 1f;
+    private float _cooldownDelay = 3f;
 
     IEnumerator Cooldown()
     {

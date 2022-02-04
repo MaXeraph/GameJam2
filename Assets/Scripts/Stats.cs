@@ -17,6 +17,7 @@ public class Stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
     }
 }
