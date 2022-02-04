@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
-
+    private float current;
     public void setMaxHealth(float health)
     {
         //TY BRACKEYS
@@ -16,6 +16,16 @@ public class HealthBar : MonoBehaviour
 
     public void setHealth(float health)
     {
-        slider.value = health;
+        current = health;
+    }
+
+    void Update()
+    {
+        //Easing the health bar value
+        if (current != slider.value)
+        {
+            slider.value = Mathf.MoveTowards(slider.value, current, 1);
+        }
+
     }
 }

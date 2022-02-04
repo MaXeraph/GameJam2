@@ -26,5 +26,9 @@ public class HealthUI : MonoBehaviour
         if (currentHealth == 0){
             gameOverText.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.P)) { Time.timeScale = 1f; gameOverText.SetActive(false); stat.currentHealth = stat.maxHealth;
+            SpeedManager.updateSpeeds(stat.currentHealth / stat.maxHealth);
+        }
     }
 }

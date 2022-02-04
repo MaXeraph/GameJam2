@@ -24,17 +24,24 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
+        if (playerBullet)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * bulletSpeed * SpeedManager.bulletSpeedScaling * Time.deltaTime;
+        if (playerBullet){ transform.position += transform.forward * bulletSpeed * Time.deltaTime * SpeedManager.bulletSpeedScaling * 2; }
+        else { transform.position += transform.forward * bulletSpeed * SpeedManager.bulletSpeedScaling * Time.deltaTime; }
+       
     }
 
     void OnTriggerEnter(Collider c) {
         Stats statsComponent = c.gameObject.GetComponent<Stats>();
+        ParticleSystem particles = c.gameObject.GetComponent<ParticleSystem>();
         if (statsComponent) {
             if (c.gameObject.tag == "Player" && playerBullet == false) {
                 statsComponent.currentHealth -= damage;
@@ -46,7 +53,10 @@ public class Bullet : MonoBehaviour
             }
             else if  (c.gameObject.tag == "Enemy" && playerBullet == true) {
                 statsComponent.currentHealth -= damage;
+                particles.Emit(20);
                 if (statsComponent.currentHealth <= 0) {
+                    GameObject.FindWithTag("Player").GetComponent<Stats>().currentHealth += 5;
+                    GameObject.FindWithTag("KillCounter").GetComponent<Counter>().add();
                     Destroy(c.gameObject);
                 }
             }
